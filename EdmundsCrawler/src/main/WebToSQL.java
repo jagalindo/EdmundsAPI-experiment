@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -14,7 +18,17 @@ import data.Model;
 
 public class WebToSQL {
 
-	public static void main(String[] args) throws FileNotFoundException, IOException, InterruptedException {
+	private static final String PERSISTENCE_UNIT_NAME = "EdmundsCrawler";
+    private static EntityManagerFactory factory;
+	
+    public static void main(String[] args) throws FileNotFoundException, IOException, InterruptedException {
+		
+		//Persistence Stuff
+    	factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+        EntityManager em = factory.createEntityManager();
+       
+		
+		
 		ConnectionManager manager = ConnectionManager.getInstance();
 		JSONArray arrayJson = manager.getArrayJson("makes");
 		
@@ -31,6 +45,11 @@ public class WebToSQL {
 				m.getModels().add(new Model((JSONObject)mo));
 			}
 		}
+		
+	    em.getTransaction().begin();
+	    em.persist(makes);
+	    em.getTransaction().commit();
+	    em.close();
 	}
 
 }
