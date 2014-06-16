@@ -1,6 +1,14 @@
 package data;
 
+import org.json.simple.JSONObject;
+
 public class Style {
+	
+	Long id;
+	String name;
+	SubModel submodel;
+	String trim;
+	
 	public Style(Long id, String name, SubModel submodel, String trim) {
 		super();
 		this.id = id;
@@ -8,10 +16,14 @@ public class Style {
 		this.submodel = submodel;
 		this.trim = trim;
 	}
-	Long id;
-	String name;
-	SubModel submodel;
-	String trim;
+	public Style(JSONObject styleObject) {
+		super();
+		this.id = (Long) styleObject.get("id");
+		this.name = (String) styleObject.get("name");
+		this.submodel = new SubModel((String)((JSONObject)styleObject.get("submodel")).get("body"),(String) ((JSONObject)styleObject.get("submodel")).get("modelName"),(String) ((JSONObject)styleObject.get("submodel")).get("niceName"));
+		this.trim = (String) styleObject.get("trim");;
+	}
+
 	
 	public Long getId() {
 		return id;

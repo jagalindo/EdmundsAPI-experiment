@@ -1,8 +1,17 @@
 package data;
 
 import java.util.Collection;
+import java.util.LinkedList;
+
+import org.json.simple.JSONObject;
 
 public class Make {
+	
+	Long id;
+	String name;
+	String niceName;
+	Collection<Model> models;
+	
 	public Make(Long id, String name, String niceName, Collection<Model> models) {
 		super();
 		this.id = id;
@@ -10,11 +19,15 @@ public class Make {
 		this.niceName = niceName;
 		this.models = models;
 	}
-	Long id;
-	String name;
-	String niceName;
-	Collection<Model> models;
 	
+	public Make(JSONObject object){
+		//this parsing is intended for the get all makes in edmunds
+		this.id=(Long) object.get("id");
+		this.name=(String) object.get("name");
+		this.niceName=(String) object.get("niceName");
+		this.models=new LinkedList<>();
+	}
+
 	public Long getId() {
 		return id;
 	}
