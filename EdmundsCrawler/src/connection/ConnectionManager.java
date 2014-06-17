@@ -19,7 +19,7 @@ public class ConnectionManager {
 	private static ConnectionManager conn=null;
 	private static String baseURL="https://api.edmunds.com/api/vehicle/v2/";
 	private static String key="?fmt=json&api_key=tkupetpgargcqgfdr48p99x2";
-	private static Long lastConnection=(long) 0;
+	private static Long lastConnection=System.currentTimeMillis();
 	private static Properties p= new Properties();
 	
 	private ConnectionManager(){}
@@ -42,7 +42,7 @@ public class ConnectionManager {
 	
 	public JSONObject getData(String partialURL) throws IOException, InterruptedException{
 		//This is a small timeout to not get banned
-		if(System.currentTimeMillis()-lastConnection<2){
+		if(System.currentTimeMillis()-lastConnection<2000){
 			Thread.sleep(4000);
 			lastConnection=System.currentTimeMillis();
 		}
