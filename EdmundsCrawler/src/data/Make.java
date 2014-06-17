@@ -3,6 +3,7 @@ package data;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -19,7 +20,7 @@ public class Make {
 
 	String name;
 	String niceName;
-	@OneToMany
+	@OneToMany(cascade = CascadeType.PERSIST)
 	Collection<Model> models;
 
 	public Make() {}

@@ -1,5 +1,6 @@
 package data;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -13,7 +14,7 @@ public class Style {
 	@Id
 	Long id;
 	String name;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.PERSIST)
 	SubModel submodel;
 	String trim;
 

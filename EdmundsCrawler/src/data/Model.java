@@ -3,6 +3,7 @@ package data;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -18,7 +19,7 @@ public class Model {
 	String id;
 	String name;
 	String niceName;
-	@OneToMany
+	@OneToMany(cascade = CascadeType.PERSIST)
 	Collection<Year> years;
 
 	public Model() {}
